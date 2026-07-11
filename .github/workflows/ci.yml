@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y cmake libsodium-dev libcurl4-openssl-dev
+
+      - name: Checkout parent api (for contract pack)
+        uses: actions/checkout@v4
+        with:
+          repository: uselicensly/licensly
+          sparse-checkout: |
+            api
+            scripts
+          path: _licensly
+          token: ${{ secrets.LICENSLY_SUBMODULES_TOKEN }}
+
+      - name: Fetch and verify contract
+        run: |
+          chmod +x scripts/fetch-contract.sh
+          LICENSLY_CONTRACT_API_ROOT="$PWD/_licensly" ./scripts/fetch-contract.sh
+
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+        env:
+          LICENSLY_SKIP_INTEGRATION: "1"
