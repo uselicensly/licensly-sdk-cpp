@@ -18,6 +18,17 @@ struct Lease {
     std::string min_app_version;
 };
 
+/// Unsigned, online-only result from validate with issue_session=false.
+struct ValidationResult {
+    bool        valid{false};
+    std::string product_id;
+    std::string license_id;
+    std::string license_status;
+    std::string device_id_hash;
+    std::string min_app_version;
+    bool        offline_usable{false};
+};
+
 /// Ed25519 signed envelope as returned by the server.
 struct Envelope {
     int32_t     version{1};
