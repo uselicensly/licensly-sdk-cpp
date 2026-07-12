@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Changed
 
+- Vendor signing fixtures under `tests/fixtures/`; remove `scripts/fetch-contract.sh`
 - Align `validate` and `activate` with Client API contract 0.4.1
 - Parse unsigned sessionless validation results without envelope verification
 - Map `app_version_too_old` and `plan_limit` API errors

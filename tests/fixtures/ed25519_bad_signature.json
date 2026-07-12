@@ -1,0 +1,12 @@
+{
+  "description": "Envelope with corrupted signature",
+  "envelope": {
+    "version": 1,
+    "kid": "key_golden_test_001",
+    "nonce": "nonce-golden-001",
+    "issued_at": "2026-07-10T12:00:00Z",
+    "payload": "eyJwcm9kdWN0X2lkIjoicHJkX2dvbGRlbiIsImxpY2Vuc2VfaWQiOiJsaWNfZ29sZGVuIiwibGljZW5zZV9zdGF0dXMiOiJhY3RpdmUiLCJzZXNzaW9uX2lkIjoiY2xzX2dvbGRlbiIsImRldmljZV9pZF9oYXNoIjoiYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYSIsImV4cGlyZXNfYXQiOiIyMDI2LTA3LTEwVDEyOjEwOjAwLjAwMDAwMDAwMFoiLCJoZWFydGJlYXRfaW50ZXJ2YWxfc2Vjb25kcyI6MTIwLCJvZmZsaW5lX2dyYWNlX3NlY29uZHMiOjM2MDAsIm1pbl9hcHBfdmVyc2lvbiI6IiJ9",
+    "signature": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  },
+  "public_key_hex": "ccb1b9e196acbbd69614ed2f0daf4ea4ffdf0d2a15a5c286b8a67551ec1959a4"
+}

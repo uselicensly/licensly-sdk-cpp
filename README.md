@@ -7,7 +7,6 @@ Depends on **libcurl** and **libsodium**.
 ## Build
 
 ```bash
-./scripts/fetch-contract.sh
 cmake -S . -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
@@ -50,6 +49,6 @@ Docs: https://licensly.dev/docs
 
 ## Contract pin
 
-This repo commits only `contract.lock.json`. Golden fixtures are fetched into `.contract/fixtures/` by `./scripts/fetch-contract.sh`.
-
-When the published API contract changes, bump `contract.lock.json` to the new `contract_version` and bundle SHA-256, then re-run fetch.
+`contract.lock.json` records which Licensly API contract this SDK targets.
+Signing golden vectors used by unit tests are vendored under `tests/fixtures/` and must
+match the pinned contract version when the lock is bumped.
