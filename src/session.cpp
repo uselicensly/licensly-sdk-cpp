@@ -5,9 +5,10 @@ namespace licensly {
 
 LicenslySession::LicenslySession(Client& client,
                                  const std::string& license_key,
-                                 const std::string& device_id)
+                                 const std::string& device_id,
+                                 const std::string& app_version)
     : client_(client) {
-    Activation act = client_.activate(license_key, device_id);
+    Activation act = client_.activate(license_key, device_id, "", app_version);
     session_token_ = act.session_token;
     lease_ = act.lease;
     stop_.store(false);

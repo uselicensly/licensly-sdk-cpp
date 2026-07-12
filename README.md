@@ -23,14 +23,28 @@ licensly::Client client(
     "prd_…",
     "<product Ed25519 public key hex>");
 
+auto validation = client.validate(
+    "LIC-8F2A-19C4-7B61-D0E3-55AA-91B2-C8D4-0F76",
+    "installation-8f27c1a4",
+    "",
+    "2.3.1");
+const auto& result = std::get<licensly::ValidationResult>(validation);
+// Sessionless validation is unsigned and online-only.
+
 // On construct: binds the license to this device (if needed) and starts a client session + heartbeats.
 // On destroy: ends this client session only. The device binding stays until an admin resets/releases it.
 // The license key itself stays valid unless you revoke it in the dashboard/API.
-licensly::LicenslySession session(client, "XXXX-XXXX-XXXX-XXXX", "stable-device-fingerprint");
+licensly::LicenslySession session(
+    client,
+    "LIC-8F2A-19C4-7B61-D0E3-55AA-91B2-C8D4-0F76",
+    "installation-8f27c1a4",
+    "2.3.1");
 auto lease = session.lease();
 ```
 
-You supply the device identifier yourself — the SDK never collects hardware IDs.
+You supply an opaque, stable device identifier yourself — the SDK never collects
+hardware IDs. Pass `true` as `validate`'s `issue_session` argument to receive an
+`Activation`; its signed envelope is verified before the lease is returned.
 
 Docs: https://licensly.dev/docs
 

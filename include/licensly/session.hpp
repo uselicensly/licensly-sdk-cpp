@@ -14,7 +14,8 @@ class LicenslySession {
 public:
     LicenslySession(Client& client,
                     const std::string& license_key,
-                    const std::string& device_id);
+                    const std::string& device_id,
+                    const std::string& app_version = "");
     ~LicenslySession();
 
     LicenslySession(const LicenslySession&) = delete;

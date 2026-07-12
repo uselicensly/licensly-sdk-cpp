@@ -3,6 +3,7 @@
 #include <licensly/types.hpp>
 #include <string>
 #include <stdexcept>
+#include <variant>
 
 namespace licensly {
 
@@ -17,10 +18,20 @@ struct ApiError : std::runtime_error {
         : std::runtime_error(message), code(std::move(code)), http_status(http_status) {}
 };
 
+struct AppVersionTooOldError : ApiError {
+    using ApiError::ApiError;
+};
+
+struct PlanLimitError : ApiError {
+    using ApiError::ApiError;
+};
+
 struct Activation {
     std::string session_token;
     Lease lease;
 };
+
+using ValidationResponse = std::variant<ValidationResult, Activation>;
 
 Lease verify_envelope(const Envelope& env, const std::string& public_key_hex);
 
@@ -37,7 +48,8 @@ public:
 
     Activation activate(const std::string& license_key,
                         const std::string& device_id,
-                        const std::string& nonce = "");
+                        const std::string& nonce = "",
+                        const std::string& app_version = "");
 
     Lease heartbeat(const std::string& session_token,
                     const std::string& nonce = "");
@@ -45,8 +57,11 @@ public:
     void deactivate(const std::string& session_token,
                     const std::string& nonce = "");
 
-    Lease validate(const std::string& session_token,
-                   const std::string& nonce = "");
+    ValidationResponse validate(const std::string& license_key,
+                                const std::string& device_id,
+                                const std::string& nonce = "",
+                                const std::string& app_version = "",
+                                bool issue_session = false);
 
 private:
     struct Impl;

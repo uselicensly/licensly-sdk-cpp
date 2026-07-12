@@ -29,6 +29,7 @@ int main() {
     const std::string license_key     = env_or("LICENSLY_LICENSE_KEY");
     const std::string public_key_hex  = env_or("LICENSLY_PUBLIC_KEY_HEX");
     const std::string device_id       = env_or("LICENSLY_DEVICE_ID");
+    const std::string app_version     = env_or("LICENSLY_APP_VERSION");
 
     if (base_url.empty() || product_id.empty() || license_key.empty()
         || public_key_hex.empty() || device_id.empty()) {
@@ -38,7 +39,18 @@ int main() {
 
     try {
         Client client(base_url, product_id, public_key_hex);
-        Activation act = client.activate(license_key, device_id);
+        ValidationResponse validation = client.validate(
+            license_key, device_id, "", app_version);
+        if (!std::holds_alternative<ValidationResult>(validation)) {
+            throw std::runtime_error("sessionless validate returned a session");
+        }
+        const auto& result = std::get<ValidationResult>(validation);
+        if (!result.valid || result.offline_usable) {
+            throw std::runtime_error("unexpected sessionless validation result");
+        }
+        std::cout << "[PASS] validate: status=" << result.license_status << "\n";
+
+        Activation act = client.activate(license_key, device_id, "", app_version);
         std::cout << "[PASS] activate: status=" << act.lease.license_status << "\n";
 
         Lease hb = client.heartbeat(act.session_token);
@@ -46,6 +58,14 @@ int main() {
 
         client.deactivate(act.session_token);
         std::cout << "[PASS] deactivate\n";
+
+        ValidationResponse with_session = client.validate(
+            license_key, device_id, "", app_version, true);
+        if (!std::holds_alternative<Activation>(with_session)) {
+            throw std::runtime_error("validate with issue_session did not return a session");
+        }
+        client.deactivate(std::get<Activation>(with_session).session_token);
+        std::cout << "[PASS] validate with session\n";
     } catch (const std::exception& e) {
         std::cerr << "[FAIL] " << e.what() << "\n";
         return 1;
