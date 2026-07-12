@@ -1,0 +1,12 @@
+{
+  "description": "Envelope with payload mutated after signing",
+  "envelope": {
+    "version": 1,
+    "kid": "key_golden_test_001",
+    "nonce": "nonce-golden-001",
+    "issued_at": "2026-07-10T12:00:00Z",
+    "payload": "eyJwcm9kdWN0X2lkIjoicHJkX2dvbGRlbiIsImxpY2Vuc2VfaWQiOiJsaWNfZ29sZGVuIiwibGljZW5zZV9zdGF0dXMiOiJyZXZva2VkIiwic2Vzc2lvbl9pZCI6ImNsc19nb2xkZW4iLCJkZXZpY2VfaWRfaGFzaCI6ImFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEiLCJleHBpcmVzX2F0IjoiMjAyNi0wNy0xMFQxMjoxMDowMC4wMDAwMDAwMDBaIiwiaGVhcnRiZWF0X2ludGVydmFsX3NlY29uZHMiOjEyMCwib2ZmbGluZV9ncmFjZV9zZWNvbmRzIjozNjAwLCJtaW5fYXBwX3ZlcnNpb24iOiIifQ",
+    "signature": "rkRw2zMysST0bK1npiiSIcpCfpW0pS2_ULUtRlRhtD2Q_fGprIAwUsZYHLw4yp9AuR7j3nBydDQvQ6WeiY8MCQ"
+  },
+  "public_key_hex": "ccb1b9e196acbbd69614ed2f0daf4ea4ffdf0d2a15a5c286b8a67551ec1959a4"
+}

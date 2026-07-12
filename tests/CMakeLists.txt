@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 # ── Golden fixture verify (no network required) ───────────────────────────────
 set(LICENSLY_CONTRACT_FIXTURES
-    "${CMAKE_SOURCE_DIR}/.contract/fixtures"
-    CACHE PATH "Path to extracted Licensly contract fixtures")
+    "${CMAKE_SOURCE_DIR}/tests/fixtures"
+    CACHE PATH "Path to vendored Licensly signing fixtures")
 
 add_executable(test_golden_verify test_golden_verify.cpp)
 
