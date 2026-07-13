@@ -23,7 +23,7 @@ licensly::Client client(
     "<product Ed25519 public key hex>");
 
 auto validation = client.validate(
-    "LIC-8F2A-19C4-7B61-D0E3-55AA-91B2-C8D4-0F76",
+    "LIC-8F2A-19C4-7B61-D0E3",
     "installation-8f27c1a4",
     "",
     "2.3.1");
@@ -35,7 +35,7 @@ const auto& result = std::get<licensly::ValidationResult>(validation);
 // The license key itself stays valid unless you revoke it in the dashboard/API.
 licensly::LicenslySession session(
     client,
-    "LIC-8F2A-19C4-7B61-D0E3-55AA-91B2-C8D4-0F76",
+    "LIC-8F2A-19C4-7B61-D0E3",
     "installation-8f27c1a4",
     "2.3.1");
 auto lease = session.lease();
